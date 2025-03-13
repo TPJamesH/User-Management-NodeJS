@@ -1,14 +1,14 @@
 import sendHttpRequest from "../../../http_call/HttpRequest";
 import CustomerUrlConfig from "../../../service_url/CustomerUrlConfig";
-const search = async (searchKey, setFunction) => {
+const search = async (pageNo, pageSize,searchKey, setFunction) => {
     console.log(searchKey);
     let instruction = ` `;
     if (searchKey.length != 0) {
-        instruction = `${CustomerUrlConfig.CUSTOMER_SEARCH}/${searchKey}`+ `?pageNo=${0}&pageSize=${5}`
+        instruction = `${CustomerUrlConfig.CUSTOMER_SEARCH}/${searchKey}`+ `?pageNo=${pageNo}&pageSize=${pageSize}`
     }
     else {
 
-        instruction = `${CustomerUrlConfig.CUSTOMER_SHOWBYPAGE + `?pageNo=${0}&pageSize=${5}`
+        instruction = `${CustomerUrlConfig.CUSTOMER_SHOWBYPAGE + `?pageNo=${0}&pageSize=${pageSize}`
             }`
     }
     let response = await sendHttpRequest(instruction)

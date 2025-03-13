@@ -2,7 +2,7 @@ import { Input, Button, Label} from "@headlessui/react"
 import search from "./api/search";
 import { useState } from "react";
 import { Field } from "@headlessui/react";
-const SearchPanel = (setFunction) => {
+const SearchPanel = (pageNo,pageSize,setFunction) => {
     //setFunction is an object, so we have to access its attribute to get the setItems
     const [searchVal, setSearchVal] = useState("");
     return (
@@ -16,7 +16,7 @@ const SearchPanel = (setFunction) => {
                         setSearchVal(e.target.value)
                     }
                     } />
-                <Button onClick={() => search(searchVal, setFunction.setFunction)}
+                <Button onClick={() => search(pageNo,pageSize,searchVal, setFunction.setFunction)}
                     className=" text-white text-xl bg-green-800 rounded-lg items-center justify-center px-4 w-auto h-12"> Search </Button>
 
             </Field>

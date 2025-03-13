@@ -9,7 +9,6 @@ const GridTable = ({
     pageSize,
     pageNo,
     loadItemApi
-
 }) => {
     //Due to closures, loadItemPaginated has already captured pageNo and pageSize when it was created in the UserTableWithRow component
     const { items, fetchItems, setItems } = useGridTableLoadData(loadItemPaginated)
@@ -18,7 +17,10 @@ const GridTable = ({
             < NewItemModal reloadFunction={fetchItems} />
 
 
-            <SearchPanel setFunction={setItems} />
+            <SearchPanel setFunction={setItems}
+                         pageNo={pageNo}
+                         pageSize={pageSize}
+            />
             <div className="relative overflow-x-auto flex justify-center">
                 <table className="text-sm text-center rtl:text-right text-gray-500 ">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">

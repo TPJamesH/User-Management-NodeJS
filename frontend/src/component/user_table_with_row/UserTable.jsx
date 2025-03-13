@@ -11,7 +11,8 @@ export default function UserTableWithRow() {
     //a higher-order function that returns another function
     const loadItemPaginated = (pageNo,pageSize) => showByPage(pageNo,pageSize) //reference instead of call
     return (
-        <GridTable RowComponent={UserRow}
+        <GridTable 
+            RowComponent={UserRow}
             loadItemApi={loadUserData}
             Pagination={Pagination}
             NewItemModal={NewUserModal}
