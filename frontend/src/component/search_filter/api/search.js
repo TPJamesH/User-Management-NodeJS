@@ -4,7 +4,7 @@ const search = async (searchKey, setFunction) => {
     console.log(searchKey);
     let instruction = ` `;
     if (searchKey.length != 0) {
-        instruction = `${CustomerUrlConfig.CUSTOMER_SEARCH}/${searchKey}`
+        instruction = `${CustomerUrlConfig.CUSTOMER_SEARCH}/${searchKey}`+ `?pageNo=${0}&pageSize=${5}`
     }
     else {
 

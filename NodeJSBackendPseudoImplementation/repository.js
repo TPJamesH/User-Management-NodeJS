@@ -57,6 +57,21 @@ class CustomerRepository {
             .limit(limit);
             //Skip the first <<(page - 1) * limit>> documents and return the next <<limit>> documents
     }
+
+    //Search
+    async findCustomerEntityBySearchTextPaginated(page,limit,searchText) {
+        const regex = new RegExp(searchText, 'i'); //case-insensitive
+        return await Customer.find({
+            $or: [
+                { firstName: regex },
+                { lastName: regex },
+                { email: regex },
+                { $expr: { $regexMatch: { input: { $concat: ['$firstName', ' ', '$lastName'] }, regex: searchText, options: 'i' } } }
+            ]
+        }).skip((page - 1) * limit)
+        .limit(limit);
+    }
+    
 }
 
 module.exports = new CustomerRepository();

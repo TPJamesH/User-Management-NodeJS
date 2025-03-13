@@ -88,11 +88,23 @@ const searchCustomers = async (req, res) => {
     }
 };
 
+const searchCustomersPaginated = async (req, res) => {
+    try {
+        const pageNo = parseInt(req.query.pageNo) || 0;
+        const pageSize = parseInt(req.query.pageSize) || 7;
+        const {dto,tokens} = await customerService.findCustomerEntityBySearchTextPaginated(pageNo + 1, pageSize,req.params.searchText);
+        res.status(200).json({ customers: dto, tokens });
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};
+
 module.exports = {
 getAll,
 createCustomer,
 updateCustomer,
 deleteCustomer,
 getCustomerPage,
-searchCustomers
+searchCustomers,
+searchCustomersPaginated
 };

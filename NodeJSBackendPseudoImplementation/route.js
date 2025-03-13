@@ -9,4 +9,5 @@ dataRouters.put('/:token', controller.updateCustomer)
 dataRouters.delete('/:token', controller.deleteCustomer)
 dataRouters.get('/page', controller.getCustomerPage)
 dataRouters.get('/search/:searchText', controller.searchCustomers)
+dataRouters.get('/search_paginated/:searchText', controller.searchCustomersPaginated)
 module.exports = dataRouters;

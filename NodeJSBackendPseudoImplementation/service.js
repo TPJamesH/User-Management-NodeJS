@@ -20,6 +20,7 @@ class CustomerService {
     }
 
     async getAllCustomers() {
+        this.tokenToIdMap.clear()
         const customers = await CustomerRepository.findAll();
         const dto = CustomerDTO.toDTOs(customers); //convert the list of entities into DTOs
         const tokens = customers.map(customer =>{
@@ -35,6 +36,7 @@ class CustomerService {
     }
 
     async searchCustomers(searchText) {
+        this.tokenToIdMap.clear()
         const customers = await CustomerRepository.findCustomerEntityBySearchText(searchText);
         const dto = CustomerDTO.toDTOs(customers);
         const tokens = customers.map(customer =>{
@@ -87,6 +89,7 @@ class CustomerService {
     }
 
     async getCustomerPage(page, limit) {
+        this.tokenToIdMap.clear()
         const customers = await CustomerRepository.findAllPaginated(page, limit);
         const dto = CustomerDTO.toDTOs(customers);
         const tokens = customers.map(customer =>{
@@ -98,6 +101,22 @@ class CustomerService {
         });
        // console.log('Token to ID Map:', tokenCache.keys());
        return {dto, tokens}
+    }
+
+    async findCustomerEntityBySearchTextPaginated(page,limit,searchText){
+        this.tokenToIdMap.clear()
+        const customers = await CustomerRepository.findCustomerEntityBySearchTextPaginated(page,limit,searchText);
+        const dto = CustomerDTO.toDTOs(customers);
+        const tokens = customers.map(customer =>{
+            const token = uuidv4();
+            tokenCache.set(token, customer._id);
+          //  console.log(`Mapping token ${token} to customer ID ${customer._id}`);
+            this.tokenToIdMap.set(token, customer._id)
+            return token;
+        });
+       // console.log('Token to ID Map:', tokenCache.keys());
+       return {dto, tokens}
+
     }
 }
 
